@@ -1118,23 +1118,8 @@ The following complete flow has been implemented:
 
 ---
 
-# 👨‍💻 Author
-
-**Yunus Mulla**
-
-GitHub:
-
-https://github.com/yunus204
-
-Repository:
-
-https://github.com/yunus204/ubi-smart-contract-distributor
-
 ---
 
-# 📄 License
-
-This project is developed for academic, educational, and demonstration purposes.
 
 ---
 
@@ -1154,6 +1139,3 @@ in a production deployment.
 
 ---
 
-# ⭐ Support
-
-If you find this project useful, consider giving the repository a ⭐ on GitHub.
