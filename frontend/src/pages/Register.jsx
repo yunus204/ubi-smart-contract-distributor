@@ -25,8 +25,27 @@ function Register() {
   };
 
   loadWallet();
-}, []);
 
+  if (window.ethereum) {
+    const handleAccountsChanged = (accounts) => {
+      const newWallet = accounts[0] || "";
+
+      setFormData((prev) => ({
+        ...prev,
+        walletAddress: newWallet,
+      }));
+    };
+
+    window.ethereum.on("accountsChanged", handleAccountsChanged);
+
+    return () => {
+      window.ethereum.removeListener(
+        "accountsChanged",
+        handleAccountsChanged
+      );
+    };
+  }
+}, []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");

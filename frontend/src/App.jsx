@@ -6,11 +6,19 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
+import AdminDashboard from "./pages/AdminDashboard";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-
+<Route
+  path="/admin/dashboard"
+  element={
+    <ProtectedRoute>
+      <AdminDashboard />
+    </ProtectedRoute>
+  }
+/>
 function Home() {
   const navigate = useNavigate();
 
@@ -288,11 +296,30 @@ function Home() {
     </div>
   );
 }
-function ProtectedRoute({ children }) {
+function ProtectedRoute({ children, allowedRole }) {
   const token = localStorage.getItem("token");
+  const storedUser = localStorage.getItem("user");
 
   if (!token) {
     return <Navigate to="/login" replace />;
+  }
+
+  let user = null;
+
+  try {
+    user = storedUser ? JSON.parse(storedUser) : null;
+  } catch {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    return <Navigate to="/login" replace />;
+  }
+
+  if (allowedRole && user?.role !== allowedRole) {
+    if (user?.role === "admin") {
+      return <Navigate to="/admin/dashboard" replace />;
+    }
+
+    return <Navigate to="/dashboard" replace />;
   }
 
   return children;
@@ -311,8 +338,26 @@ function App() {
 
         {/* USER LOGIN */}
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
 
+        {/* USER DASHBOARD */}
+        <Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
+
+        {/* ADMIN DASHBOARD */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
