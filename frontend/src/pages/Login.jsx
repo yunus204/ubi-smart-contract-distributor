@@ -38,9 +38,9 @@ function Login() {
       if (response.data.success) {
         const { token, user } = response.data;
 
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
 
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user", JSON.stringify(user));
         if (user.role === "admin") {
           navigate("/admin/dashboard");
         } else {
@@ -50,7 +50,7 @@ function Login() {
     } catch (err) {
       setError(
         err.response?.data?.message ||
-          "Login failed. Please check your credentials."
+        "Login failed. Please check your credentials."
       );
     } finally {
       setLoading(false);

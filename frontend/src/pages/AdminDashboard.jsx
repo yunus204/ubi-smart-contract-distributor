@@ -23,65 +23,66 @@ function AdminDashboard() {
   const [message, setMessage] = useState("");
 
   const adminUser = JSON.parse(
-    localStorage.getItem("user") || "{}"
+    sessionStorage.getItem("user") || "{}"
   );
 
   /* ================= LOAD DATA ================= */
 
   const loadData = async () => {
-    try {
-      setLoading(true);
-      setError("");
+  try {
+    setLoading(true);
+    setError("");
 
-      const [usersResponse, statsResponse] = await Promise.all([
-        api.get("/admin/users"),
-        api.get("/admin/stats"),
-      ]);
+    const [usersResponse, statsResponse] = await Promise.all([
+      api.get("/admin/users"),
+      api.get("/admin/stats"),
+    ]);
 
-      let loadedUsers = [];
+    let loadedUsers = [];
 
-      if (usersResponse.data.success) {
-        loadedUsers = usersResponse.data.users;
-        setUsers(loadedUsers);
-      }
-
-      if (statsResponse.data.success) {
-        setStats(statsResponse.data.stats);
-      }
-
-      /* ================= BLOCKCHAIN STATUS ================= */
-
-      const blockchainData = {};
-
-      await Promise.all(
-        loadedUsers.map(async (user) => {
-          try {
-            if (!user.walletAddress) return;
-
-            const data = await getBlockchainUserData(
-              user.walletAddress
-            );
-
-            blockchainData[user._id] = data;
-          } catch (err) {
-            console.error(
-              `Blockchain lookup failed for ${user.name}:`,
-              err
-            );
-          }
-        })
-      );
-
-      setBlockchainUsers(blockchainData);
-    } catch (err) {
-      setError(
-        err.response?.data?.message ||
-          "Failed to load admin dashboard."
-      );
-    } finally {
-      setLoading(false);
+    if (usersResponse.data.success) {
+      loadedUsers = usersResponse.data.users || [];
+      setUsers(loadedUsers);
     }
-  };
+
+    if (statsResponse.data.success) {
+      setStats(statsResponse.data.stats);
+    }
+
+    /* ================= BLOCKCHAIN STATUS ================= */
+
+    const blockchainData = {};
+
+    await Promise.all(
+      loadedUsers.map(async (user) => {
+        try {
+          if (!user.walletAddress) return;
+
+          const data = await getBlockchainUserData(
+            user.walletAddress
+          );
+
+          blockchainData[user._id] = data;
+        } catch (err) {
+          console.error(
+            `Blockchain lookup failed for ${user.name}:`,
+            err
+          );
+        }
+      })
+    );
+
+    setBlockchainUsers(blockchainData);
+  } catch (err) {
+    setError(
+      err.response?.data?.message ||
+        "Failed to load admin dashboard."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     loadData();
@@ -119,7 +120,7 @@ function AdminDashboard() {
     } catch (err) {
       setError(
         err.response?.data?.message ||
-          `Failed to ${status} user.`
+        `Failed to ${status} user.`
       );
     } finally {
       setActionLoading("");
@@ -163,7 +164,7 @@ function AdminDashboard() {
     } catch (err) {
       setError(
         err.response?.data?.message ||
-          "Failed to deposit funds."
+        "Failed to deposit funds."
       );
     } finally {
       setActionLoading("");
@@ -208,7 +209,7 @@ function AdminDashboard() {
     } catch (err) {
       setError(
         err.response?.data?.message ||
-          "Failed to distribute UBI."
+        "Failed to distribute UBI."
       );
     } finally {
       setActionLoading("");
@@ -218,8 +219,8 @@ function AdminDashboard() {
   /* ================= LOGOUT ================= */
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
 
     window.location.href = "/login";
   };
@@ -542,9 +543,9 @@ function AdminDashboard() {
                 const isProcessing =
                   actionLoading === user._id ||
                   actionLoading ===
-                    `verify-${user._id}` ||
+                  `verify-${user._id}` ||
                   actionLoading ===
-                    `distribute-${user._id}`;
+                  `distribute-${user._id}`;
 
                 return (
                   <div
@@ -597,9 +598,8 @@ function AdminDashboard() {
                       </span>
 
                       <span
-                        className={`verification-badge ${
-                          user.verificationStatus
-                        }`}
+                        className={`verification-badge ${user.verificationStatus
+                          }`}
                       >
                         {user.verificationStatus ===
                           "approved" && "✓ "}
@@ -680,8 +680,44 @@ function AdminDashboard() {
 
                       {user.verificationStatus ===
                         "pending" && (
-                        <>
+                          <>
 
+                            <button
+                              className="approve-btn"
+                              disabled={isProcessing}
+                              onClick={() =>
+                                handleVerification(
+                                  user._id,
+                                  "approved"
+                                )
+                              }
+                            >
+                              {actionLoading ===
+                                `verify-${user._id}`
+                                ? "Processing..."
+                                : "Approve"}
+                            </button>
+
+                            <button
+                              className="reject-btn"
+                              disabled={isProcessing}
+                              onClick={() =>
+                                handleVerification(
+                                  user._id,
+                                  "rejected"
+                                )
+                              }
+                            >
+                              Reject
+                            </button>
+
+                          </>
+                        )}
+
+                      {/* REJECTED */}
+
+                      {user.verificationStatus ===
+                        "rejected" && (
                           <button
                             className="approve-btn"
                             disabled={isProcessing}
@@ -693,67 +729,31 @@ function AdminDashboard() {
                             }
                           >
                             {actionLoading ===
-                            `verify-${user._id}`
+                              `verify-${user._id}`
                               ? "Processing..."
                               : "Approve"}
                           </button>
+                        )}
+                      {/* SYNC BLOCKCHAIN ELIGIBILITY */}
 
+                      {isApproved &&
+                        !isEligible &&
+                        !isReceived && (
                           <button
-                            className="reject-btn"
+                            className="sync-btn"
                             disabled={isProcessing}
                             onClick={() =>
                               handleVerification(
                                 user._id,
-                                "rejected"
+                                "approved"
                               )
                             }
                           >
-                            Reject
+                            {actionLoading === `verify-${user._id}`
+                              ? "Syncing..."
+                              : "Sync Blockchain"}
                           </button>
-
-                        </>
-                      )}
-
-                      {/* REJECTED */}
-
-                      {user.verificationStatus ===
-                        "rejected" && (
-                        <button
-                          className="approve-btn"
-                          disabled={isProcessing}
-                          onClick={() =>
-                            handleVerification(
-                              user._id,
-                              "approved"
-                            )
-                          }
-                        >
-                          {actionLoading ===
-                          `verify-${user._id}`
-                            ? "Processing..."
-                            : "Approve"}
-                        </button>
-                      )}
-                      {/* SYNC BLOCKCHAIN ELIGIBILITY */}
-
-{isApproved &&
-  !isEligible &&
-  !isReceived && (
-  <button
-    className="sync-btn"
-    disabled={isProcessing}
-    onClick={() =>
-      handleVerification(
-        user._id,
-        "approved"
-      )
-    }
-  >
-    {actionLoading === `verify-${user._id}`
-      ? "Syncing..."
-      : "Sync Blockchain"}
-  </button>
-)}
+                        )}
 
                       {/* DISTRIBUTE */}
 
@@ -773,7 +773,7 @@ function AdminDashboard() {
                             }
                           >
                             {actionLoading ===
-                            `distribute-${user._id}`
+                              `distribute-${user._id}`
                               ? "Distributing..."
                               : "Distribute 0.01 ETH"}
                           </button>

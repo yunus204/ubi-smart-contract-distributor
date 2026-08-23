@@ -297,8 +297,8 @@ function Home() {
   );
 }
 function ProtectedRoute({ children, allowedRole }) {
-  const token = localStorage.getItem("token");
-  const storedUser = localStorage.getItem("user");
+  const token = sessionStorage.getItem("token");
+  const storedUser = sessionStorage.getItem("user");
 
   if (!token) {
     return <Navigate to="/login" replace />;
@@ -309,8 +309,8 @@ function ProtectedRoute({ children, allowedRole }) {
   try {
     user = storedUser ? JSON.parse(storedUser) : null;
   } catch {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
     return <Navigate to="/login" replace />;
   }
 
@@ -341,19 +341,19 @@ function App() {
 
         {/* USER DASHBOARD */}
         <Route
-  path="/dashboard"
-  element={
-    <ProtectedRoute>
-      <Dashboard />
-    </ProtectedRoute>
-  }
-/>
+          path="/dashboard"
+          element={
+            <ProtectedRoute allowedRole="user">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
 
         {/* ADMIN DASHBOARD */}
         <Route
           path="/admin/dashboard"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRole="admin">
               <AdminDashboard />
             </ProtectedRoute>
           }
