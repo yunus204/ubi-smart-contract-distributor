@@ -734,6 +734,26 @@ function AdminDashboard() {
                             : "Approve"}
                         </button>
                       )}
+                      {/* SYNC BLOCKCHAIN ELIGIBILITY */}
+
+{isApproved &&
+  !isEligible &&
+  !isReceived && (
+  <button
+    className="sync-btn"
+    disabled={isProcessing}
+    onClick={() =>
+      handleVerification(
+        user._id,
+        "approved"
+      )
+    }
+  >
+    {actionLoading === `verify-${user._id}`
+      ? "Syncing..."
+      : "Sync Blockchain"}
+  </button>
+)}
 
                       {/* DISTRIBUTE */}
 

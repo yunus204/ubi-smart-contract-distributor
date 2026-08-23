@@ -729,3 +729,12 @@
     max-width: 100%;
   }
 }
+.sync-btn {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe !important;
+}
+
+.sync-btn:hover {
+  background: #dbeafe;
+}
