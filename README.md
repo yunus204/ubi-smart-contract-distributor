@@ -910,19 +910,23 @@ Add them to README using:
 
 ### Login
 
-![Login](screenshots/login.png)
+![Login](<img width="1915" height="1079" alt="login" src="https://github.com/user-attachments/assets/e61b5392-bfef-41cb-855f-eb82cfd1d7de" />
+)
 
 ### User Dashboard
 
-![User Dashboard](screenshots/user-dashboard.png)
+![User Dashboard](<img width="1919" height="1079" alt="dashboard" src="https://github.com/user-attachments/assets/148a7018-129d-4da1-b28f-c58c54068f77" />
+)
 
 ### Admin Dashboard
 
-![Admin Dashboard](screenshots/admin-dashboard.png)
+![Admin Dashboard](<img width="1919" height="1079" alt="adminDashboard" src="https://github.com/user-attachments/assets/444ecfd7-f497-4564-a119-9463d364a7e5" />
+)
 
 ### Transaction History
 
-![Transaction History](screenshots/transaction-history.png)
+![Transaction History](<img width="1919" height="1079" alt="Thistory" src="https://github.com/user-attachments/assets/685dc32d-ed07-4b71-9e28-860dfa41ddad" />
+)
 ```
 
 ---
