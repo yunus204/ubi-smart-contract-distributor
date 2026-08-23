@@ -36,9 +36,15 @@ Environment-based configuration
 🛠️ Tech Stack
 Layer	Technologies
 Frontend	React 19, React DOM, React Router, Vite, Axios, ethers.js, JavaScript/JSX, CSS
+
+
 Backend	Node.js, Express.js, MongoDB, Mongoose, JWT, bcryptjs, Axios, dotenv, ethers.js, CORS
+
+
 Blockchain	Ethereum, Solidity, Hardhat, ethers.js, Hardhat Local Network
-Development Tools	Git, GitHub, Visual Studio Code, npm, MongoDB, MetaMask-compatible wallet
+
+
+Development Tools	 Git, GitHub, Visual Studio Code, npm, MongoDB, MetaMask-compatible wallet
 ---
 📦 Installation
 Prerequisites
