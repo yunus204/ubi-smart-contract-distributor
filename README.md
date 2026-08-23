@@ -105,8 +105,9 @@ The system allows administrators to verify users, manage blockchain eligibility,
                              History
 
 
+
 🛠️ Technologies Used
-Frontend
+Frontend:
 React 19
 React DOM
 React Router
@@ -115,7 +116,8 @@ Axios
 ethers.js
 JavaScript / JSX
 CSS
-Backend
+
+Backend:
 Node.js
 Express.js
 MongoDB
@@ -126,20 +128,24 @@ Axios
 dotenv
 ethers.js
 CORS
-Blockchain
+
+Blockchain:
 Ethereum
 Solidity
 Hardhat
 ethers.js
 Hardhat Local Network
-Development Tools
+
+Development Tools:
 Git
 GitHub
 Visual Studio Code
 npm
 MongoDB
 MetaMask-compatible wallet
+
 📂 Project Structure
+
 ubi-smart-contract-distributor/
 │
 ├── blockchain/
@@ -169,6 +175,7 @@ ubi-smart-contract-distributor/
 │
 ├── .gitignore
 └── README.md
+
 🧠 Core Components
 👤 User Management
 
@@ -181,6 +188,7 @@ View verification status
 View blockchain eligibility
 View UBI payment status
 View transaction history
+
 👨‍💼 Admin Management
 
 Administrators can:
@@ -195,6 +203,7 @@ View smart contract balance
 Fund the smart contract
 Distribute UBI
 View blockchain transaction hashes
+
 ⛓️ Smart Contract
 
 The smart contract manages:
@@ -246,6 +255,7 @@ Exist in the database
 Be approved
 Be eligible
 Not have already received UBI
+
 💾 Database
 
 MongoDB is used for application-level data storage.
@@ -260,6 +270,7 @@ User
 ├── verificationStatus
 ├── eligible
 └── totalReceived
+
 Transaction Data
 Transaction
 ├── user
@@ -269,17 +280,20 @@ Transaction
 ├── type
 ├── status
 └── createdAt
+
 🌐 API Endpoints
 User
 GET  /api/users/me
 GET  /api/users/transactions/me
 POST /api/users/claim
+
 Admin
 GET   /api/admin/users
 GET   /api/admin/stats
 PATCH /api/admin/users/:id/verify
 POST  /api/admin/contract/deposit
 POST  /api/admin/distribute/:id
+
 📦 Installation
 Requirements
 
@@ -291,14 +305,17 @@ MongoDB
 Git
 MetaMask or compatible wallet
 Visual Studio Code
+
 1. Clone Repository
 git clone https://github.com/yunus204/ubi-smart-contract-distributor.git
 
 cd ubi-smart-contract-distributor
+
 2. Install Blockchain Dependencies
 cd blockchain
 
 npm install
+
 3. Install Backend Dependencies
 
 Open another terminal:
@@ -306,6 +323,7 @@ Open another terminal:
 cd ubi-smart-contract-distributor/backend
 
 npm install
+
 4. Install Frontend Dependencies
 
 Open another terminal:
@@ -313,6 +331,7 @@ Open another terminal:
 cd ubi-smart-contract-distributor/frontend
 
 npm install
+
 ⛓️ Blockchain Setup
 Start Hardhat Network
 
@@ -334,7 +353,6 @@ Open another terminal:
 
 cd blockchain
 
-npm run compile
 🚀 Deploy Smart Contract
 npm run deploy:local
 
@@ -364,16 +382,7 @@ UBI_CONTRACT_ADDRESS=<deployed-contract-address>
 ADMIN_PRIVATE_KEY=<hardhat-account-private-key>
 
 UBI_AMOUNT_ETH=0.01
-⚠️ Important
 
-Never commit your actual .env file.
-
-Never expose:
-
-ADMIN_PRIVATE_KEY
-JWT_SECRET
-ADMIN_PASSWORD
-MONGO_URI
 ▶️ Run Backend
 cd backend
 
@@ -382,6 +391,7 @@ npm run dev
 Backend:
 
 http://localhost:5000
+
 💻 Run Frontend
 
 Open another terminal:
@@ -393,11 +403,13 @@ npm run dev
 Frontend:
 
 http://localhost:5173
+
 🧪 Testing
 Smart Contract Tests
 cd blockchain
 
 npm test
+
 Frontend Build
 cd frontend
 
@@ -413,25 +425,31 @@ npm run dev
 Production:
 
 npm start
+
+start
 🧪 Tested Scenarios
-Scenario	Result
-User Registration	✅
-User Login	✅
-Admin Login	✅
-User Dashboard	✅
-Admin Dashboard	✅
-User accessing Admin API	❌ 403
-User funding contract	❌ 403
-Admin funding contract	✅
-Admin approving user	✅
-Blockchain eligibility sync	✅
-UBI distribution	✅
-Duplicate UBI distribution	❌ Rejected
-Ineligible user distribution	❌ Rejected
-Transaction saved in MongoDB	✅
-Transaction history	✅
-Contract balance tracking	✅
+| Scenario                     | Result     |
+| ---------------------------- | ---------- |
+| User Registration            | ✅          |
+| User Login                   | ✅          |
+| Admin Login                  | ✅          |
+| User Dashboard               | ✅          |
+| Admin Dashboard              | ✅          |
+| User accessing Admin API     | ❌ 403      |
+| User funding contract        | ❌ 403      |
+| Admin funding contract       | ✅          |
+| Admin approving user         | ✅          |
+| Blockchain eligibility sync  | ✅          |
+| UBI distribution             | ✅          |
+| Duplicate UBI distribution   | ❌ Rejected |
+| Ineligible user distribution | ❌ Rejected |
+| Transaction saved in MongoDB | ✅          |
+| Transaction history          | ✅          |
+| Contract balance tracking    | ✅          |
+
+
 📊 Example UBI Transaction
+
 Admin
  │
  │ Deposit
@@ -455,6 +473,7 @@ Admin
              │
              ▼
           MongoDB
+
 🔗 Web2 + Web3 Integration
 
 The project demonstrates the integration of conventional web technologies with blockchain.
@@ -473,8 +492,6 @@ Ethereum Smart Contract
   │
   ▼
 User Wallet
-
-MongoDB handles application records while the blockchain handles the actual decentralized payment logic.
 
 📈 Current Capabilities
 
@@ -495,6 +512,7 @@ Transaction history
 Admin dashboard
 User dashboard
 Blockchain transaction tracking
+
 🔮 Future Improvements
 Public Ethereum-compatible testnet deployment
 MetaMask wallet integration
@@ -509,12 +527,12 @@ Comprehensive automated testing
 Blockchain explorer integration
 Smart contract security audit
 Production-grade key management
+
 📌 Project Status
 
 Functional Prototype
 
 The complete User → Admin → Blockchain → Transaction flow has been implemented and tested on a local Ethereum/Hardhat network.
-
 Registration
      ↓
 Authentication
@@ -530,3 +548,6 @@ UBI Distribution
 Transaction Recording
      ↓
 User Transaction History
+
+
+
