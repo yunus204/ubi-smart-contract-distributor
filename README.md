@@ -903,31 +903,23 @@ screenshots/
 └── transaction-history.png
 ```
 
-Add them to README using:
-
-```markdown
 ## 📸 Screenshots
 
-### Login
+### 🔐 Login
 
-![Login](<img width="1915" height="1079" alt="login"/>
-)
+![Login](screenshots/login.png)
 
-### User Dashboard
+### 👤 User Dashboard
 
-![User Dashboard](<img width="1919" height="1079" alt="dashboard"/>
-)
+![User Dashboard](screenshots/dashboard.png)
 
-### Admin Dashboard
+### 👨‍💼 Admin Dashboard
 
-![Admin Dashboard](<img width="1919" height="1079" />
-)
+![Admin Dashboard](screenshots/admin-dashboard.png)
 
-### Transaction History
+### 💰 Transaction History
 
-![Transaction History](<img width="1919" height="1079" alt="Thistory"  />
-)
-```
+![Transaction History](screenshots/transaction-history.png)
 
 ---
 
