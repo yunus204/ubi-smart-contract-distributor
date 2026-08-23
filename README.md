@@ -907,15 +907,18 @@ screenshots/
 
 ### 🔐 Login
 
-![Login]("C:\Users\mdyun\OneDrive\Pictures\Screenshots\login.png")
+![Login]("<img width="1915" height="1079" alt="login" src="https://github.com/user-attachments/assets/21de95dd-8985-426d-995e-2c2ecdc9141e" />
+")
 
 ### 👤 User Dashboard
 
-![User Dashboard](""C:\Users\mdyun\OneDrive\Pictures\Screenshots\adminDashboard.png"")
+![User Dashboard]("<img width="1919" height="1079" alt="dashboard" src="https://github.com/user-attachments/assets/c485efd6-6327-4db6-a621-f5a269f53e85" />
+")
 
 ### 👨‍💼 Admin Dashboard
 
-![Admin Dashboard](screenshots/admin-dashboard.png)
+![Admin Dashboard]("<img width="1919" height="1079" alt="adminDashboard" src="https://github.com/user-attachments/assets/313009ec-8993-4650-92e6-aabbdc61a49b" />
+")
 
 ### 💰 Transaction History
 
