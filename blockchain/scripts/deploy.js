@@ -7,7 +7,7 @@ async function main() {
 
   console.log("Deploying with:", deployer.address);
 
-  // 0.01 ETH in wei for the default MVP distribution.
+  // Default UBI distribution amount: 0.01 ETH
   const ubiAmount = hre.ethers.parseEther("0.01");
 
   const Factory = await hre.ethers.getContractFactory("UBIDistributor");
@@ -19,11 +19,26 @@ async function main() {
 
   console.log("UBIDistributor deployed to:", address);
   console.log("Owner:", deployer.address);
-  console.log("UBI amount:", hre.ethers.formatEther(ubiAmount), "ETH");
+  console.log(
+    "UBI amount:",
+    hre.ethers.formatEther(ubiAmount),
+    "ETH"
+  );
 
+  // Get deployed contract ABI
   const artifact = await hre.artifacts.readArtifact("UBIDistributor");
 
-  const backendConfigDir = path.resolve(__dirname, "../../backend/src/config");
+  /*
+   * ============================================================
+   * BACKEND CONFIG
+   * ============================================================
+   */
+
+  const backendConfigDir = path.resolve(
+    __dirname,
+    "../../backend/src/config"
+  );
+
   fs.mkdirSync(backendConfigDir, { recursive: true });
 
   fs.writeFileSync(
@@ -31,14 +46,53 @@ async function main() {
     JSON.stringify(
       {
         address,
-        abi: artifact.abi
+        abi: artifact.abi,
       },
       null,
       2
     )
   );
 
-  console.log("Backend contract config written to backend/src/config/contract.json");
+  console.log(
+    "Backend contract config written to backend/src/config/contract.json"
+  );
+
+  /*
+   * ============================================================
+   * FRONTEND CONFIG
+   * ============================================================
+   */
+
+  const frontendConfigDir = path.resolve(
+    __dirname,
+    "../../frontend/src/config"
+  );
+
+  fs.mkdirSync(frontendConfigDir, { recursive: true });
+
+  fs.writeFileSync(
+    path.join(frontendConfigDir, "contract.json"),
+    JSON.stringify(
+      {
+        address,
+        abi: artifact.abi,
+      },
+      null,
+      2
+    )
+  );
+
+  console.log(
+    "Frontend contract config written to frontend/src/config/contract.json"
+  );
+
+  console.log("\n========================================");
+  console.log("DEPLOYMENT COMPLETE");
+  console.log("========================================");
+  console.log("Contract:", address);
+  console.log("Owner:", deployer.address);
+  console.log("UBI Amount: 0.01 ETH");
+  console.log("========================================\n");
 }
 
 main().catch((error) => {
